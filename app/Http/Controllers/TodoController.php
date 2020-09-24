@@ -14,7 +14,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        dd(Todo::all());
+        $todos = Todo::all();
+        return view('todos.index', compact('todos'));
     }
 
     /**
