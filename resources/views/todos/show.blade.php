@@ -8,6 +8,7 @@
                 <div class="card-header">Todo詳細</div>
 
                 <div class="card-body">
+                    @include('components.alert')
                     <table class="table">
                         <tr>
                             <th class="w-25">タイトル</th>

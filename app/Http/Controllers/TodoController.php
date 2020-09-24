@@ -14,7 +14,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::paginate(10);
+        $todos = Todo::orderBy('id', 'desc')->paginate(10);
         return view('todos.index', compact('todos'));
     }
 
@@ -25,7 +25,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todos.create');
     }
 
     /**
@@ -36,7 +36,10 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Todo::create($request->all());
+        return redirect()
+            ->route('todos.index')
+            ->with('status', 'Todoを登録しました');
     }
 
     /**
@@ -58,7 +61,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        return view('todos.edit', compact('todo'));
     }
 
     /**
@@ -70,7 +73,10 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo->fill($request->all())->save();
+        return redirect()
+            ->route('todos.show', $todo)
+            ->with('status', 'Todoを更新しました');
     }
 
     /**
@@ -81,6 +87,9 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return redirect()
+            ->route('todos.index')
+            ->with('status', 'Todoを削除しました');
     }
 }
