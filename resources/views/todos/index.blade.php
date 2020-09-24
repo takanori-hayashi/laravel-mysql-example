@@ -18,12 +18,15 @@
                       <tbody>
                           @foreach ($todos as $todo)
                               <tr>
-                                  <td>{{ $todo->ID }}</td>
+                                  <td>{{ $todo->id }}</td>
                                   <td>{{ $todo->title }}</td>
                               </tr>
                           @endforeach
                       </tbody>
                     </table>
+                    <div>
+                        {{ $todos->links() }}
+                    </div>
                 </div>
             </div>
         </div>
