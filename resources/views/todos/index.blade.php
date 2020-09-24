@@ -8,7 +8,7 @@
                 <div class="card-header">Todo一覧</div>
 
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-straiped">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -19,7 +19,7 @@
                           @foreach ($todos as $todo)
                               <tr>
                                   <td>{{ $todo->id }}</td>
-                                  <td>{{ $todo->title }}</td>
+                                  <td><a href="/todos/{{ $todo->id }}">{{ $todo->title }}</a></td>
                               </tr>
                           @endforeach
                       </tbody>
