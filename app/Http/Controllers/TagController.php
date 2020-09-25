@@ -50,7 +50,8 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        return view('tags.show', compact('tag'));
+        $todos = $tag->todos()->paginate(20);
+        return view('tags.show', compact('tag', 'todos'));
     }
 
     /**
@@ -88,6 +89,7 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag->delete();
+        $tag->todos()->detach();
         return redirect()
             ->route('tags.index')
             ->with('status', 'タグを削除しました');

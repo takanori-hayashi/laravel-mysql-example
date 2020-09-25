@@ -15,7 +15,8 @@ class CreateTodoTagTable extends Migration
     {
         Schema::create('todo_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('todo_id');
+            $table->unsignedBigInteger('tag_id');
         });
     }
 

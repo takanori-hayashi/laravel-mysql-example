@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Models\Tag;
 use App\Http\Requests\TodoRequest;
 
 class TodoController extends Controller
@@ -25,7 +26,8 @@ class TodoController extends Controller
      */
     public function create()
     {
-        return view('todos.create');
+        $tags = Tag::pluck('title', 'id')->toArray();
+        return view('todos.create', compact('tags'));
     }
 
     /**
@@ -36,7 +38,8 @@ class TodoController extends Controller
      */
     public function store(TodoRequest $request)
     {
-        Todo::create($request->all());
+        $todo = Todo::create($request->all());
+        $todo->tags()->sync($request->tags);
         return redirect()
             ->route('todos.index')
             ->with('status', 'Todoを登録しました');
@@ -61,7 +64,8 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        return view('todos.edit', compact('todo'));
+        $tags = Tag::pluck('title', 'id')->toArray();
+        return view('todos.edit', compact('todo', 'tags'));
     }
 
     /**
@@ -74,6 +78,7 @@ class TodoController extends Controller
     public function update(TodoRequest $request, Todo $todo)
     {
         $todo->fill($request->all())->save();
+        $todo->tags()->sync($request->tags);
         return redirect()
             ->route('todos.show', $todo)
             ->with('status', 'Todoを更新しました');
@@ -88,6 +93,7 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         $todo->delete();
+        $todo->tags()->detach();
         return redirect()
             ->route('todos.index')
             ->with('status', 'Todoを削除しました');

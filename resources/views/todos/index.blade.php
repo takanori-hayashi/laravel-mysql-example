@@ -20,6 +20,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>タイトル</th>
+                                <th>タグ</th>
                                 <th>アクション</th>
                             </tr>
                         </thead>
@@ -28,6 +29,14 @@
                               <tr>
                                   <td class="align-middle">{{ $todo->id }}</td>
                                   <td class="align-middle">{{ $todo->title }}</td>
+                                  <td class="align-middle">
+                                      @foreach ($todo->tags as $tag)
+                                          <a href="{{ route('tags.show', $tag->id) }}">{{ $tag->title }}</a>
+                                          @unless ($loop->last)
+                                              ,
+                                          @endunless
+                                      @endforeach
+                                  </td>
                                   <td class="align-middle">
                                       <div class="d-flex">
                                           <a
