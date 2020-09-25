@@ -33,7 +33,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="{{ Request::is('todos/*') ? 'active' : '' }}">
+                            <a
+                              class="nav-link"
+                              href="{{ route('todos.index') }}"
+                            >Todos</a>
+                        </li>
+                        <li class="{{ Request::is('tags/*') ? 'active' : '' }}">
+                            <a
+                              class="nav-link"
+                              href="{{ route('tags.index') }}"
+                            >タグ</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

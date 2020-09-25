@@ -17,4 +17,5 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'TodoController@index');
     Route::resource('todos', 'TodoController');
+    Route::resource('tags', 'TagController');
 });
